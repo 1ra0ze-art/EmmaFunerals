@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<!-- SIDEBAR -->
+<!-- ════════ SIDEBAR ════════ -->
 <aside>
   <div class="sidebar-top">
     <div class="sidebar-logo">
@@ -30,44 +30,83 @@
   </div>
 
   <nav class="sidebar-nav">
-    <div class="sidebar-nav-item active" onclick="switchSection('add')"><span>➕</span> Add Product</div>
-    <div class="sidebar-nav-item" onclick="switchSection('list')"><span>📦</span> All Products</div>
+    <div class="sidebar-nav-item active" data-section="add" onclick="switchSection('add', this)">
+      <span>➕</span> Add Product
+    </div>
+    <div class="sidebar-nav-item" data-section="list" onclick="switchSection('list', this)">
+      <span>📦</span> All Products
+    </div>
+    <div class="sidebar-nav-item" data-section="messages" onclick="switchSection('messages', this)">
+      <span>✉️</span> Messages
+      <span class="msg-badge" id="msg-badge" style="display:none"></span>
+    </div>
   </nav>
 
   <div class="sidebar-stats">
     <div class="stat-row">
-      <span class="stat-label">Total Products</span>
+      <span class="stat-label">Products</span>
       <span class="stat-val" id="stat-count">0</span>
+    </div>
+    <div class="stat-row">
+      <span class="stat-label">Inquiries</span>
+      <span class="stat-val" id="stat-msgs">0</span>
     </div>
   </div>
 </aside>
 
-<!-- MAIN -->
+<!-- ════════ MAIN ════════ -->
 <main>
   <div class="main-header">
     <div>
       <h1>Dashboard</h1>
-      <p>Manage gallery products — changes reflect on the website instantly</p>
+      <p>Manage products &amp; messages — changes reflect on the website instantly</p>
     </div>
     <a class="view-site-btn" href="index.html" target="_blank">↗ View Website</a>
   </div>
 
-  <!-- ADD PRODUCT SECTION -->
+  <!-- ── ADD PRODUCT ── -->
   <div class="section active" id="section-add">
     <div class="form-card">
       <h2>Add New Product</h2>
-      <p class="subtitle">Fill in the details below and upload a photo from your computer</p>
+      <p class="subtitle">Fill in the details below and upload a product photo</p>
 
       <div class="form-row">
-        <div class="fg"><label>Product Name *</label><input type="text" id="f-name" placeholder="e.g. Royal Oak Casket"></div>
-        <div class="fg"><label>Price (RWF) *</label><input type="text" id="f-price" placeholder="e.g. 450,000 RWF"></div>
+        <div class="fg">
+          <label>Product Name <span class="req">*</span></label>
+          <input type="text" id="f-name" placeholder="e.g. Royal Oak Casket">
+        </div>
+        <div class="fg">
+          <label>Price (RWF) <span class="req">*</span></label>
+          <input type="text" id="f-price" placeholder="e.g. 450,000 RWF">
+        </div>
       </div>
 
-      <div class="fg"><label>Description</label><textarea id="f-desc" placeholder="Brief description of material, finish, style..."></textarea></div>
+      <div class="form-row">
+        <div class="fg">
+          <label>Category <span class="req">*</span></label>
+          <select id="f-category">
+            <option value="standard">Standard</option>
+            <option value="premium" selected>Premium</option>
+            <option value="luxury">Luxury</option>
+          </select>
+        </div>
+        <div class="fg"><!-- spacer --></div>
+      </div>
+
+      <div class="fg">
+        <label>Description</label>
+        <textarea id="f-desc" placeholder="Brief description of material, finish, style..."></textarea>
+      </div>
 
       <div class="form-row">
-        <div class="fg"><label>WhatsApp Number *</label><input type="text" id="f-wa" placeholder="+250788000000"></div>
-        <div class="fg"><label>Call Number *</label><input type="text" id="f-tel" placeholder="+250788000000"></div>
+        <div class="fg">
+          <label>WhatsApp Number <span class="req">*</span></label>
+          <input type="text" id="f-wa" placeholder="+250788000000">
+        </div>
+        <div class="fg">
+          <label>Call Number <span class="req">*</span></label>
+          <input type="text" id="f-tel" placeholder="+250788000000">
+        </div>
       </div>
 
       <div class="fg">
@@ -92,12 +131,13 @@
     </div>
   </div>
 
-  <!-- PRODUCT LIST SECTION -->
+  <!-- ── PRODUCT LIST ── -->
   <div class="section" id="section-list">
     <div class="products-table">
       <div class="products-table-head">
         <div>Photo</div>
         <div>Name</div>
+        <div>Category</div>
         <div>Price</div>
         <div>Contact</div>
         <div>Actions</div>
@@ -105,119 +145,235 @@
       <div id="product-rows"></div>
     </div>
   </div>
+
+  <!-- ── MESSAGES ── -->
+  <div class="section" id="section-messages">
+    <div class="form-card">
+      <h2>Customer Inquiries</h2>
+      <p class="subtitle">Messages submitted via the website contact form</p>
+      <div id="messages-list"></div>
+    </div>
+  </div>
 </main>
 
 <script>
-  let imgBase64 = null;
+/* ══════════════════════════════════════════════
+   Admin JS — Emma Funeral Services
+══════════════════════════════════════════════ */
 
-  // ── Storage ──
-  function getProducts() { return JSON.parse(localStorage.getItem('emma_products') || '[]'); }
-  function saveProducts(arr) { localStorage.setItem('emma_products', JSON.stringify(arr)); updateStats(); }
-  function updateStats() { document.getElementById('stat-count').textContent = getProducts().length; }
+let imgBase64 = null;
 
-  // ── Sidebar ──
-  function switchSection(id) {
-    document.querySelectorAll('.sidebar-nav-item').forEach(el => el.classList.remove('active'));
-    document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
-    event.currentTarget.classList.add('active');
-    document.getElementById('section-' + id).classList.add('active');
-    if (id === 'list') renderList();
-  }
-
-  // ── Image Upload ──
-  function handleImageUpload(input) {
-    const file = input.files[0];
-    if (!file) return;
-    if (file.size > 5 * 1024 * 1024) { showToast('Image too large — max 5MB.', 'error'); return; }
-    const reader = new FileReader();
-    reader.onload = e => {
-      imgBase64 = e.target.result;
-      document.getElementById('preview-img').src = imgBase64;
-      document.getElementById('preview-wrap').style.display = 'block';
-      document.getElementById('upload-area').style.display = 'none';
-    };
-    reader.readAsDataURL(file);
-  }
-
-  function clearImage() {
-    imgBase64 = null;
-    document.getElementById('f-img').value = '';
-    document.getElementById('preview-wrap').style.display = 'none';
-    document.getElementById('upload-area').style.display = 'block';
-  }
-
-  // ── Add Product ──
-  function saveProduct() {
-    const name  = document.getElementById('f-name').value.trim();
-    const price = document.getElementById('f-price').value.trim();
-    const desc  = document.getElementById('f-desc').value.trim();
-    const wa    = document.getElementById('f-wa').value.trim();
-    const tel   = document.getElementById('f-tel').value.trim();
-
-    if (!name || !price) { showToast('Name and Price are required.', 'error'); return; }
-    if (!wa || !tel)      { showToast('Please enter WhatsApp and Call numbers.', 'error'); return; }
-
-    const products = getProducts();
-    products.push({ name, price, desc, img: imgBase64 || null, wa, tel, id: Date.now() });
-    saveProducts(products);
-    showToast('✓  Product saved successfully!', 'success');
-    clearForm();
-  }
-
-  function clearForm() {
-    ['f-name','f-price','f-desc','f-wa','f-tel'].forEach(id => document.getElementById(id).value = '');
-    clearImage();
-  }
-
-  function showToast(msg, type) {
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.className = 'toast ' + type;
-    t.style.display = 'block';
-    setTimeout(() => t.style.display = 'none', 3500);
-  }
-
-  // ── Product List ──
-  function renderList() {
-    const products = getProducts();
-    const container = document.getElementById('product-rows');
-    if (!products.length) {
-      container.innerHTML = '<div class="empty-list"><p>No products added yet.</p></div>';
-      return;
-    }
-    container.innerHTML = products.map((p, i) => `
-      <div class="product-row">
-        <div>${p.img ? `<img class="product-thumb" src="${p.img}" alt="${p.name}">` : '<div class="product-thumb-empty">⚰</div>'}</div>
-        <div class="row-name">${p.name}<small>${p.desc ? p.desc.slice(0, 60) + (p.desc.length > 60 ? '…' : '') : '—'}</small></div>
-        <div class="row-price">${p.price}</div>
-        <div class="row-contact">📞 ${p.tel}<br>💬 ${p.wa}</div>
-        <div class="row-actions"><button class="del-btn" onclick="deleteProduct(${i})">Delete</button></div>
-      </div>`).join('');
-  }
-
-  function deleteProduct(i) {
-    if (!confirm('Delete this product? This cannot be undone.')) return;
-    const products = getProducts();
-    products.splice(i, 1);
-    saveProducts(products);
-    renderList();
-  }
-
-  // drag & drop
-  const ua = document.getElementById('upload-area');
-  ua.addEventListener('dragover', e => { e.preventDefault(); ua.classList.add('drag-over'); });
-  ua.addEventListener('dragleave', () => ua.classList.remove('drag-over'));
-  ua.addEventListener('drop', e => {
-    e.preventDefault(); ua.classList.remove('drag-over');
-    const file = e.dataTransfer.files[0];
-    if (file && file.type.startsWith('image/')) {
-      const input = document.getElementById('f-img');
-      const dt = new DataTransfer(); dt.items.add(file); input.files = dt.files;
-      handleImageUpload(input);
-    }
-  });
-
+/* ── Storage ── */
+function getProducts() {
+  return JSON.parse(localStorage.getItem('emma_products') || '[]');
+}
+function saveProducts(arr) {
+  localStorage.setItem('emma_products', JSON.stringify(arr));
   updateStats();
+}
+
+function getMessages() {
+  return JSON.parse(localStorage.getItem('emma_messages') || '[]');
+}
+
+/* ── Stats ── */
+function updateStats() {
+  const prods = getProducts();
+  const msgs  = getMessages();
+  const unread = msgs.filter(m => !m.read).length;
+
+  document.getElementById('stat-count').textContent = prods.length;
+  document.getElementById('stat-msgs').textContent  = msgs.length;
+
+  const badge = document.getElementById('msg-badge');
+  if (unread > 0) {
+    badge.textContent = unread;
+    badge.style.display = 'inline-block';
+  } else {
+    badge.style.display = 'none';
+  }
+}
+
+/* ── Sidebar Navigation ── */
+function switchSection(id, el) {
+  document.querySelectorAll('.sidebar-nav-item').forEach(i => i.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('section-' + id).classList.add('active');
+  if (id === 'list')     renderList();
+  if (id === 'messages') renderMessages();
+}
+
+/* ── Image Upload ── */
+function handleImageUpload(input) {
+  const file = input.files[0];
+  if (!file) return;
+  if (file.size > 5 * 1024 * 1024) {
+    showToast('Image too large — max 5MB.', 'error');
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = e => {
+    imgBase64 = e.target.result;
+    document.getElementById('preview-img').src = imgBase64;
+    document.getElementById('preview-wrap').style.display = 'block';
+    document.getElementById('upload-area').style.display = 'none';
+  };
+  reader.readAsDataURL(file);
+}
+
+function clearImage() {
+  imgBase64 = null;
+  document.getElementById('f-img').value = '';
+  document.getElementById('preview-wrap').style.display = 'none';
+  document.getElementById('upload-area').style.display = 'block';
+}
+
+/* ── Validation ── */
+function validatePhone(val) {
+  return /^[\d\s\+\-]{7,}$/.test(val);
+}
+
+/* ── Save Product ── */
+function saveProduct() {
+  const name     = document.getElementById('f-name').value.trim();
+  const price    = document.getElementById('f-price').value.trim();
+  const desc     = document.getElementById('f-desc').value.trim();
+  const category = document.getElementById('f-category').value;
+  const wa       = document.getElementById('f-wa').value.trim();
+  const tel      = document.getElementById('f-tel').value.trim();
+
+  // Validation
+  if (!name)                    { showToast('Product name is required.', 'error'); return; }
+  if (!price)                   { showToast('Price is required.', 'error'); return; }
+  if (!wa || !validatePhone(wa)){ showToast('Please enter a valid WhatsApp number.', 'error'); return; }
+  if (!tel || !validatePhone(tel)){ showToast('Please enter a valid call number.', 'error'); return; }
+
+  const products = getProducts();
+  products.push({
+    id: Date.now(),
+    name, price, desc, category,
+    img: imgBase64 || null,
+    wa, tel
+  });
+  saveProducts(products);
+  showToast('✓  Product saved successfully!', 'success');
+  clearForm();
+}
+
+function clearForm() {
+  ['f-name', 'f-price', 'f-desc', 'f-wa', 'f-tel'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('f-category').value = 'premium';
+  clearImage();
+}
+
+function showToast(msg, type) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className   = 'toast ' + type;
+  t.style.display = 'block';
+  setTimeout(() => t.style.display = 'none', 3500);
+}
+
+/* ── Product List ── */
+function renderList() {
+  const products  = getProducts();
+  const container = document.getElementById('product-rows');
+  if (!products.length) {
+    container.innerHTML = '<div class="empty-list"><p>No products added yet.</p></div>';
+    return;
+  }
+  container.innerHTML = products.map((p, i) => `
+    <div class="product-row">
+      <div>${p.img
+        ? `<img class="product-thumb" src="${p.img}" alt="${p.name}">`
+        : '<div class="product-thumb-empty">⚰</div>'}</div>
+      <div class="row-name">
+        ${p.name}
+        <small>${p.desc ? p.desc.slice(0, 60) + (p.desc.length > 60 ? '…' : '') : '—'}</small>
+      </div>
+      <div class="row-cat">${categoryLabel(p.category)}</div>
+      <div class="row-price">${p.price}</div>
+      <div class="row-contact">📞 ${p.tel}<br>💬 ${p.wa}</div>
+      <div class="row-actions">
+        <button class="del-btn" onclick="deleteProduct(${i})">Delete</button>
+      </div>
+    </div>`).join('');
+}
+
+function categoryLabel(cat) {
+  return { premium: 'Premium', standard: 'Standard', luxury: 'Luxury' }[cat] || '—';
+}
+
+function deleteProduct(i) {
+  if (!confirm('Delete this product? This cannot be undone.')) return;
+  const products = getProducts();
+  products.splice(i, 1);
+  saveProducts(products);
+  renderList();
+}
+
+/* ── Messages ── */
+function renderMessages() {
+  const messages  = getMessages();
+  const container = document.getElementById('messages-list');
+
+  if (!messages.length) {
+    container.innerHTML = '<div class="empty-list"><p>No messages received yet.</p></div>';
+    return;
+  }
+
+  // Mark all as read
+  const updated = messages.map(m => ({ ...m, read: true }));
+  localStorage.setItem('emma_messages', JSON.stringify(updated));
+  updateStats();
+
+  container.innerHTML = [...messages].reverse().map((m, i) => `
+    <div class="msg-card ${m.read ? '' : 'msg-unread'}">
+      <div class="msg-meta">
+        <strong>${m.name}</strong>
+        <span class="msg-date">${formatDate(m.date)}</span>
+        ${!m.read ? '<span class="msg-new-badge">New</span>' : ''}
+      </div>
+      <div class="msg-contacts">
+        📞 ${m.phone} &nbsp;|&nbsp; ✉️ ${m.email}
+      </div>
+      <div class="msg-body">${m.message}</div>
+      <div class="msg-actions">
+        <a class="msg-reply-btn" href="tel:${m.phone}">📞 Call</a>
+        <a class="msg-reply-btn" href="mailto:${m.email}">✉️ Email</a>
+      </div>
+    </div>`).join('');
+}
+
+function formatDate(iso) {
+  if (!iso) return '';
+  const d = new Date(iso);
+  return d.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' })
+       + ' at ' + d.toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit' });
+}
+
+/* ── Drag & Drop on upload area ── */
+const ua = document.getElementById('upload-area');
+ua.addEventListener('dragover', e => { e.preventDefault(); ua.classList.add('drag-over'); });
+ua.addEventListener('dragleave', () => ua.classList.remove('drag-over'));
+ua.addEventListener('drop', e => {
+  e.preventDefault();
+  ua.classList.remove('drag-over');
+  const file = e.dataTransfer.files[0];
+  if (file && file.type.startsWith('image/')) {
+    const input = document.getElementById('f-img');
+    const dt = new DataTransfer();
+    dt.items.add(file);
+    input.files = dt.files;
+    handleImageUpload(input);
+  }
+});
+
+/* ── Init ── */
+updateStats();
 </script>
 </body>
 </html>
