@@ -169,6 +169,7 @@
     updateCartCount();
     renderCart();
   }
+  document.querySelectorAll('#yr').forEach(el => el.textContent = new Date().getFullYear());
 
   function cartCheckout() {
     if (!cart.length) return;
