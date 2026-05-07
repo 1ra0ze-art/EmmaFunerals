@@ -4,37 +4,38 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin — Emma Funeral Services</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="admin.css">
 </head>
 <body>
 
-<!-- SIDEBAR -->
 <aside>
-  <div class="sidebar-top">
-    <div class="sidebar-logo">
-      <svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M14 6 L28 6 L34 14 L34 36 L8 36 L8 14 Z" fill="none" stroke="#b8966e" stroke-width="1.5"/>
-        <path d="M8 14 L14 6" stroke="#b8966e" stroke-width="1.5"/>
-        <path d="M28 6 L34 14" stroke="#b8966e" stroke-width="1.5"/>
-        <line x1="21" y1="16" x2="21" y2="30" stroke="#b8966e" stroke-width="1" opacity="0.5"/>
-        <line x1="14" y1="23" x2="28" y2="23" stroke="#b8966e" stroke-width="1" opacity="0.5"/>
-        <circle cx="21" cy="23" r="2" fill="#b8966e" opacity="0.6"/>
-      </svg>
-      <div class="sidebar-logo-text">
-        <span>Emma</span>
-        <span>Funeral Services</span>
+  <div class="sb-top">
+    <div class="sb-logo">
+      <div class="sb-logo-icon">
+        <svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M13 5 L29 5 L36 13 L36 37 L6 37 L6 13 Z" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2"/>
+          <path d="M6 13 L13 5" stroke="rgba(255,255,255,0.9)" stroke-width="2"/>
+          <path d="M29 5 L36 13" stroke="rgba(255,255,255,0.9)" stroke-width="2"/>
+          <line x1="21" y1="15" x2="21" y2="32" stroke="rgba(255,255,255,0.55)" stroke-width="1.5"/>
+          <line x1="13" y1="23.5" x2="29" y2="23.5" stroke="rgba(255,255,255,0.55)" stroke-width="1.5"/>
+          <circle cx="21" cy="23.5" r="2.5" fill="rgba(255,255,255,0.7)"/>
+        </svg>
+      </div>
+      <div class="sb-logo-text">
+        <span class="t1">Emma</span>
+        <span class="t2">Funeral Services</span>
       </div>
     </div>
-    <div class="sidebar-badge">Admin Panel</div>
+    <div class="sb-badge">Admin Panel</div>
   </div>
 
-  <nav class="sidebar-nav">
-    <div class="sidebar-nav-item active" onclick="switchSection('add')"><span>➕</span> Add Product</div>
-    <div class="sidebar-nav-item" onclick="switchSection('list')"><span>📦</span> All Products</div>
+  <nav class="sb-nav">
+    <div class="sb-item active" onclick="switchSection('add', this)"><span class="ic">➕</span> Add Product</div>
+    <div class="sb-item" onclick="switchSection('list', this)"><span class="ic">📦</span> All Products</div>
   </nav>
 
-  <div class="sidebar-stats">
+  <div class="sb-stats">
     <div class="stat-row">
       <span class="stat-label">Total Products</span>
       <span class="stat-val" id="stat-count">0</span>
@@ -42,179 +43,201 @@
   </div>
 </aside>
 
-<!-- MAIN -->
 <main>
-  <div class="main-header">
+  <div class="main-hd">
     <div>
       <h1>Dashboard</h1>
-      <p>Manage gallery products — changes reflect on the website instantly</p>
+      <p>Manage the product gallery — changes show on the website instantly</p>
     </div>
-    <a class="view-site-btn" href="index.html" target="_blank">↗ View Website</a>
+    <a class="view-btn" href="index.html" target="_blank">↗ View Website</a>
   </div>
 
-  <!-- ADD PRODUCT SECTION -->
+  <!-- ADD -->
   <div class="section active" id="section-add">
     <div class="form-card">
       <h2>Add New Product</h2>
-      <p class="subtitle">Fill in the details below and upload a photo from your computer</p>
+      <p class="sub">Fill in the details and upload up to 3 photos — they'll appear as a slideshow on the website</p>
 
       <div class="form-row">
         <div class="fg"><label>Product Name *</label><input type="text" id="f-name" placeholder="e.g. Royal Oak Casket"></div>
-        <div class="fg"><label>Price (RWF) *</label><input type="text" id="f-price" placeholder="e.g. 450,000 RWF"></div>
+        <div class="fg"><label>Price *</label><input type="text" id="f-price" placeholder="e.g. 450,000 RWF"></div>
       </div>
-
-      <div class="fg"><label>Description</label><textarea id="f-desc" placeholder="Brief description of material, finish, style..."></textarea></div>
-
+      <div class="fg"><label>Description</label><textarea id="f-desc" placeholder="Material, finish, dimensions, style..."></textarea></div>
       <div class="form-row">
         <div class="fg"><label>WhatsApp Number *</label><input type="text" id="f-wa" placeholder="+250788000000"></div>
         <div class="fg"><label>Call Number *</label><input type="text" id="f-tel" placeholder="+250788000000"></div>
       </div>
 
-      <div class="fg">
-        <label>Product Photo</label>
-        <div class="img-upload-area" id="upload-area">
-          <input type="file" id="f-img" accept="image/*" onchange="handleImageUpload(this)">
-          <span class="img-upload-icon">🖼️</span>
-          <p>Click to choose a photo, or drag &amp; drop here</p>
-          <small>JPG, PNG, WEBP — max 5MB</small>
+      <label class="imgs-label">Product Photos <span>(up to 3 — shown as slideshow)</span></label>
+      <div class="imgs-grid">
+        <!-- Slot 1 -->
+        <div class="img-slot" id="slot-0">
+          <div class="img-slot-inner" id="slot-inner-0">
+            <input type="file" accept="image/*" onchange="handleImg(this,0)">
+            <span class="slot-icon">📷</span>
+            <span class="slot-num">Photo 1</span>
+            <span class="slot-hint">Main photo</span>
+          </div>
         </div>
-        <div class="img-preview-wrap" id="preview-wrap">
-          <img id="preview-img" src="" alt="Preview">
-          <button class="img-remove-btn" onclick="clearImage()">✕</button>
+        <!-- Slot 2 -->
+        <div class="img-slot" id="slot-1">
+          <div class="img-slot-inner" id="slot-inner-1">
+            <input type="file" accept="image/*" onchange="handleImg(this,1)">
+            <span class="slot-icon">📷</span>
+            <span class="slot-num">Photo 2</span>
+            <span class="slot-hint">Side / angle</span>
+          </div>
+        </div>
+        <!-- Slot 3 -->
+        <div class="img-slot" id="slot-2">
+          <div class="img-slot-inner" id="slot-inner-2">
+            <input type="file" accept="image/*" onchange="handleImg(this,2)">
+            <span class="slot-icon">📷</span>
+            <span class="slot-num">Photo 3</span>
+            <span class="slot-hint">Detail / interior</span>
+          </div>
         </div>
       </div>
 
       <div class="form-actions">
         <button class="btn-save" onclick="saveProduct()">Save Product</button>
-        <button class="btn-clear" onclick="clearForm()">Clear Form</button>
+        <button class="btn-clr" onclick="clearForm()">Clear</button>
       </div>
       <div class="toast" id="toast"></div>
     </div>
   </div>
 
-  <!-- PRODUCT LIST SECTION -->
+  <!-- LIST -->
   <div class="section" id="section-list">
-    <div class="products-table">
-      <div class="products-table-head">
-        <div>Photo</div>
-        <div>Name</div>
-        <div>Price</div>
-        <div>Contact</div>
-        <div>Actions</div>
+    <div class="list-card">
+      <div class="list-head">
+        <div>Photos</div><div>Name</div><div>Price</div><div>Contact</div><div>Action</div>
       </div>
-      <div id="product-rows"></div>
+      <div id="list-rows"></div>
     </div>
   </div>
 </main>
 
 <script>
-  let imgBase64 = null;
+  let imgs = [null, null, null];
 
-  // ── Storage ──
   function getProducts() { return JSON.parse(localStorage.getItem('emma_products') || '[]'); }
   function saveProducts(arr) { localStorage.setItem('emma_products', JSON.stringify(arr)); updateStats(); }
   function updateStats() { document.getElementById('stat-count').textContent = getProducts().length; }
 
-  // ── Sidebar ──
-  function switchSection(id) {
-    document.querySelectorAll('.sidebar-nav-item').forEach(el => el.classList.remove('active'));
-    document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
-    event.currentTarget.classList.add('active');
+  function switchSection(id, el) {
+    document.querySelectorAll('.sb-item').forEach(i => i.classList.remove('active'));
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    el.classList.add('active');
     document.getElementById('section-' + id).classList.add('active');
     if (id === 'list') renderList();
   }
 
-  // ── Image Upload ──
-  function handleImageUpload(input) {
+  // ── Image slots ──
+  function handleImg(input, idx) {
     const file = input.files[0];
     if (!file) return;
     if (file.size > 5 * 1024 * 1024) { showToast('Image too large — max 5MB.', 'error'); return; }
     const reader = new FileReader();
     reader.onload = e => {
-      imgBase64 = e.target.result;
-      document.getElementById('preview-img').src = imgBase64;
-      document.getElementById('preview-wrap').style.display = 'block';
-      document.getElementById('upload-area').style.display = 'none';
+      imgs[idx] = e.target.result;
+      const inner = document.getElementById('slot-inner-' + idx);
+      const labels = ['Main photo', 'Side / angle', 'Detail / interior'];
+      inner.innerHTML = `
+        <div class="slot-preview"><img src="${imgs[idx]}" alt="photo ${idx+1}"></div>
+        <button class="slot-remove" onclick="clearSlot(${idx})">✕</button>
+        <div class="slot-label-badge">${labels[idx]}</div>`;
     };
     reader.readAsDataURL(file);
   }
 
-  function clearImage() {
-    imgBase64 = null;
-    document.getElementById('f-img').value = '';
-    document.getElementById('preview-wrap').style.display = 'none';
-    document.getElementById('upload-area').style.display = 'block';
+  function clearSlot(idx) {
+    imgs[idx] = null;
+    const labels = ['Main photo', 'Side / angle', 'Detail / interior'];
+    const hints = ['Main photo', 'Side / angle', 'Detail / interior'];
+    const nums = ['Photo 1', 'Photo 2', 'Photo 3'];
+    const inner = document.getElementById('slot-inner-' + idx);
+    inner.innerHTML = `
+      <input type="file" accept="image/*" onchange="handleImg(this,${idx})">
+      <span class="slot-icon">📷</span>
+      <span class="slot-num">${nums[idx]}</span>
+      <span class="slot-hint">${hints[idx]}</span>`;
   }
 
-  // ── Add Product ──
+  // ── Save ──
   function saveProduct() {
     const name  = document.getElementById('f-name').value.trim();
     const price = document.getElementById('f-price').value.trim();
     const desc  = document.getElementById('f-desc').value.trim();
     const wa    = document.getElementById('f-wa').value.trim();
     const tel   = document.getElementById('f-tel').value.trim();
-
     if (!name || !price) { showToast('Name and Price are required.', 'error'); return; }
-    if (!wa || !tel)      { showToast('Please enter WhatsApp and Call numbers.', 'error'); return; }
+    if (!wa || !tel)      { showToast('WhatsApp and Call numbers are required.', 'error'); return; }
 
     const products = getProducts();
-    products.push({ name, price, desc, img: imgBase64 || null, wa, tel, id: Date.now() });
+    products.push({
+      name, price, desc,
+      imgs: imgs.filter(Boolean),  // only non-null
+      wa, tel, id: Date.now()
+    });
     saveProducts(products);
-    showToast('✓  Product saved successfully!', 'success');
+    showToast('✓  Product saved! It is now live on the website.', 'success');
     clearForm();
   }
 
   function clearForm() {
     ['f-name','f-price','f-desc','f-wa','f-tel'].forEach(id => document.getElementById(id).value = '');
-    clearImage();
+    [0,1,2].forEach(i => clearSlot(i));
+    imgs = [null, null, null];
   }
 
   function showToast(msg, type) {
     const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.className = 'toast ' + type;
-    t.style.display = 'block';
-    setTimeout(() => t.style.display = 'none', 3500);
+    t.textContent = msg; t.className = 'toast ' + type; t.style.display = 'block';
+    setTimeout(() => t.style.display = 'none', 3800);
   }
 
-  // ── Product List ──
+  // ── List ──
   function renderList() {
     const products = getProducts();
-    const container = document.getElementById('product-rows');
-    if (!products.length) {
-      container.innerHTML = '<div class="empty-list"><p>No products added yet.</p></div>';
-      return;
-    }
-    container.innerHTML = products.map((p, i) => `
-      <div class="product-row">
-        <div>${p.img ? `<img class="product-thumb" src="${p.img}" alt="${p.name}">` : '<div class="product-thumb-empty">⚰</div>'}</div>
-        <div class="row-name">${p.name}<small>${p.desc ? p.desc.slice(0, 60) + (p.desc.length > 60 ? '…' : '') : '—'}</small></div>
+    const el = document.getElementById('list-rows');
+    if (!products.length) { el.innerHTML = '<div class="list-empty"><p>No products added yet.</p></div>'; return; }
+    el.innerHTML = products.map((p, i) => {
+      const thumbs = (p.imgs || []).map(img =>
+        `<img class="thumb" src="${img}" alt="">`
+      ).join('');
+      const emptyThumbs = Array(3 - (p.imgs||[]).length).fill('<div class="thumb-empty">⚰</div>').join('');
+      return `<div class="list-row">
+        <div class="thumb-strip">${thumbs}${emptyThumbs}</div>
+        <div class="row-name">${p.name}<small>${p.desc ? p.desc.slice(0,55)+'…' : ''}</small></div>
         <div class="row-price">${p.price}</div>
         <div class="row-contact">📞 ${p.tel}<br>💬 ${p.wa}</div>
-        <div class="row-actions"><button class="del-btn" onclick="deleteProduct(${i})">Delete</button></div>
-      </div>`).join('');
+        <div><button class="del-btn" onclick="delProduct(${i})">Delete</button></div>
+      </div>`;
+    }).join('');
   }
 
-  function deleteProduct(i) {
-    if (!confirm('Delete this product? This cannot be undone.')) return;
+  function delProduct(i) {
+    if (!confirm('Delete this product? Cannot be undone.')) return;
     const products = getProducts();
     products.splice(i, 1);
     saveProducts(products);
     renderList();
   }
 
-  // drag & drop
-  const ua = document.getElementById('upload-area');
-  ua.addEventListener('dragover', e => { e.preventDefault(); ua.classList.add('drag-over'); });
-  ua.addEventListener('dragleave', () => ua.classList.remove('drag-over'));
-  ua.addEventListener('drop', e => {
-    e.preventDefault(); ua.classList.remove('drag-over');
-    const file = e.dataTransfer.files[0];
-    if (file && file.type.startsWith('image/')) {
-      const input = document.getElementById('f-img');
-      const dt = new DataTransfer(); dt.items.add(file); input.files = dt.files;
-      handleImageUpload(input);
-    }
+  // drag & drop for each slot
+  [0,1,2].forEach(idx => {
+    const el = document.getElementById('slot-inner-' + idx);
+    el.addEventListener('dragover', e => { e.preventDefault(); el.classList.add('drag'); });
+    el.addEventListener('dragleave', () => el.classList.remove('drag'));
+    el.addEventListener('drop', e => {
+      e.preventDefault(); el.classList.remove('drag');
+      const file = e.dataTransfer.files[0];
+      if (file && file.type.startsWith('image/')) {
+        const input = el.querySelector('input[type=file]');
+        if (input) { const dt = new DataTransfer(); dt.items.add(file); input.files = dt.files; handleImg(input, idx); }
+      }
+    });
   });
 
   updateStats();

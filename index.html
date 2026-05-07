@@ -1,96 +1,154 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Emma Funeral Services</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<!-- NAVBAR -->
 <nav>
   <div class="nav-brand" onclick="showPage('home')">
-    <svg class="nav-logo" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M14 6 L28 6 L34 14 L34 36 L8 36 L8 14 Z" fill="none" stroke="#b8966e" stroke-width="1.5"/>
-      <path d="M8 14 L14 6" stroke="#b8966e" stroke-width="1.5"/>
-      <path d="M28 6 L34 14" stroke="#b8966e" stroke-width="1.5"/>
-      <line x1="21" y1="16" x2="21" y2="30" stroke="#b8966e" stroke-width="1" opacity="0.5"/>
-      <line x1="14" y1="23" x2="28" y2="23" stroke="#b8966e" stroke-width="1" opacity="0.5"/>
-      <circle cx="21" cy="23" r="2" fill="#b8966e" opacity="0.6"/>
+    <svg class="nav-logo" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="52" height="52" rx="4" fill="#e8f0ed"/>
+      <path d="M17 8 L35 8 L41 16 L41 44 L11 44 L11 16 Z" fill="none" stroke="#4a7c6b" stroke-width="2"/>
+      <path d="M11 16 L17 8" stroke="#4a7c6b" stroke-width="2"/>
+      <path d="M35 8 L41 16" stroke="#4a7c6b" stroke-width="2"/>
+      <line x1="26" y1="20" x2="26" y2="36" stroke="#4a7c6b" stroke-width="1.5" opacity="0.6"/>
+      <line x1="18" y1="28" x2="34" y2="28" stroke="#4a7c6b" stroke-width="1.5" opacity="0.6"/>
+      <circle cx="26" cy="28" r="2.5" fill="#4a7c6b" opacity="0.8"/>
     </svg>
-    <div class="nav-name"><span>Emma</span><span>Funeral Services</span></div>
+    <div class="nav-name">
+      <span>Emma Funeral Services</span>
+      <span>Premium Coffins &amp; Burial Solutions</span>
+    </div>
   </div>
   <ul class="nav-links">
     <li><a class="active" id="nav-home" onclick="showPage('home')">Home</a></li>
-    <li><a id="nav-gallery" onclick="showPage('gallery')">Collection</a></li>
+    <li><a id="nav-gallery" onclick="showPage('gallery')">Shop</a></li>
     <li><a id="nav-contact" onclick="showPage('contact')">Contact</a></li>
   </ul>
+  <div class="nav-right">
+    <button class="cart-btn" onclick="openCart()">
+      🛒 Cart <span class="cart-count" id="cart-count">0</span>
+    </button>
+  </div>
 </nav>
 
-<!-- HOME -->
+<!-- ═══ HOME ═══ -->
 <div class="page active" id="page-home">
-  <section class="home-hero">
-    <div class="home-hero-content">
-      <div class="hero-eyebrow">Dignified Farewells Since 2008</div>
-      <h1>Crafting <em>Rest</em> with<br>Dignity &amp; Grace</h1>
-      <p class="hero-description">At Emma Funeral Services, we understand that a farewell is not merely an end — it is a final act of love. We craft premium coffins and burial solutions, each made with care, precision, and deep respect for the life being honoured. Let us walk alongside you in this solemn moment.</p>
-      <button class="hero-cta" onclick="showPage('gallery')">View Our Collections →</button>
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-tag">Dignified Farewells Since 2010</div>
+      <h1>Honouring Life with <em>Dignity</em> &amp; Grace</h1>
+      <p>At Emma Funeral Services, every coffin is a final tribute — crafted with care, quality timber, and deep respect for the life being honoured. We walk alongside you in this solemn moment.</p>
+      <button class="hero-cta" onclick="showPage('gallery')">Browse Collections →</button>
+      <button class="hero-cta2" onclick="showPage('contact')">Contact Us</button>
     </div>
   </section>
   <section class="home-pillars">
-    <div class="pillar"><span class="pillar-icon">🕊️</span><h3>Handcrafted Quality</h3><p>Every coffin is carefully crafted by skilled artisans using premium, locally-sourced timber and materials — built to reflect the dignity every soul deserves.</p></div>
-    <div class="pillar"><span class="pillar-icon">🌿</span><h3>Compassionate Support</h3><p>We are available at every step. From choosing the right coffin to coordinating delivery, our team provides quiet, unhurried, compassionate guidance.</p></div>
-    <div class="pillar"><span class="pillar-icon">💛</span><h3>Fair Pricing</h3><p>Grief should not be burdened with financial stress. We offer transparent, honest pricing across all our collections — from humble simplicity to refined elegance.</p></div>
+    <div class="pillar"><div class="pillar-icon">🕊️</div><h3>Handcrafted Quality</h3><p>Premium, locally-sourced timber crafted by skilled artisans — built to reflect the dignity every soul deserves.</p></div>
+    <div class="pillar"><div class="pillar-icon">🌿</div><h3>Compassionate Support</h3><p>From choosing the right coffin to delivery, our team provides quiet, unhurried, compassionate guidance at every step.</p></div>
+    <div class="pillar"><div class="pillar-icon">💛</div><h3>Honest Pricing</h3><p>Transparent, fair pricing across all collections — grief should never be burdened with financial stress.</p></div>
   </section>
-  <section class="home-banner">
-    <div class="home-banner-text">
-      <h2>Available to serve you, any hour of the day.</h2>
-      <p>We know loss does not wait for office hours. Reach out to us anytime and a member of our team will respond with care and urgency.</p>
+  <section class="home-strip">
+    <div>
+      <h2>Available to serve you,<br>any hour of the day.</h2>
+      <p>Loss does not wait for office hours. Reach out anytime — we respond with care and urgency.</p>
     </div>
-    <div class="banner-tel"><span>Call Us Now</span><a href="tel:+250788000000">+250 788 000 000</a></div>
+    <div class="strip-tel"><span>Call Us Now</span><a href="tel:+250788871345">+250 788 871 345</a></div>
   </section>
   <footer><p>© 2025 Emma Funeral Services. All rights reserved.</p><a onclick="showPage('contact')">Get in Touch</a></footer>
 </div>
 
-<!-- GALLERY -->
+<!-- ═══ GALLERY / SHOP ═══ -->
 <div class="page" id="page-gallery">
-  <div class="gallery-header">
+  <div class="market-header">
     <h2>Our Collections</h2>
-    <p>Select a coffin · Contact to purchase</p>
-    <div class="gallery-divider"></div>
+    <p>Click any coffin to view details, images and add to cart</p>
+    <div class="market-meta">
+      <span class="market-count" id="market-count">0 products</span>
+    </div>
   </div>
-  <div class="gallery-body">
+  <div class="market-body">
     <div class="product-grid" id="product-grid"></div>
-    <div class="gallery-empty" id="gallery-empty"><p>No products available yet — please check back soon.</p></div>
+    <div class="market-empty" id="market-empty"><p>No products yet — check back soon.</p></div>
   </div>
   <footer><p>© 2025 Emma Funeral Services. All rights reserved.</p><a onclick="showPage('contact')">Get in Touch</a></footer>
 </div>
 
-<!-- CONTACT -->
+<!-- ═══ CONTACT ═══ -->
 <div class="page" id="page-contact">
   <div class="contact-layout">
     <div class="contact-left">
       <h2>We're Here<br>For You</h2>
       <p class="sub">Get in touch</p>
-      <div class="contact-detail"><div class="contact-detail-icon">📍</div><div class="contact-detail-text"><span>Location</span><p>KG 14 Ave, Kigali<br>Rwanda</p></div></div>
-      <div class="contact-detail"><div class="contact-detail-icon">📞</div><div class="contact-detail-text"><span>Phone</span><p>+250 788 000 000<br>Available 24 / 7</p></div></div>
-      <div class="contact-detail"><div class="contact-detail-icon">✉️</div><div class="contact-detail-text"><span>Email</span><p>info@emmafunerals.rw</p></div></div>
-      <div class="contact-detail"><div class="contact-detail-icon">🕐</div><div class="contact-detail-text"><span>Hours</span><p>Mon – Sat: 7:00 AM – 7:00 PM<br>Emergency: 24 hours</p></div></div>
+      <div class="c-detail"><div class="c-icon">📍</div><div class="c-text"><span>Location</span><p>KG 14 Ave, Kigali<br>Rwanda</p></div></div>
+      <div class="c-detail"><div class="c-icon">📞</div><div class="c-text"><span>Phone</span><p>+250 788 871 345<br>Available 24 / 7</p></div></div>
+      <div class="c-detail"><div class="c-icon">✉️</div><div class="c-text"><span>Email</span><p>info@emmafunerals.rw</p></div></div>
+      <div class="c-detail"><div class="c-icon">🕐</div><div class="c-text"><span>Hours</span><p>Mon – Sat: 7:00 AM – 7:00 PM<br>Emergency: 24 hours</p></div></div>
     </div>
     <div class="contact-right">
       <h3>Send Us a Message</h3>
-      <div class="form-group"><label>Full Name</label><input type="text" placeholder="Your name"></div>
-      <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="+250 ___"></div>
-      <div class="form-group"><label>Email Address</label><input type="email" placeholder="you@email.com"></div>
-      <div class="form-group"><label>Message</label><textarea placeholder="How can we help you?"></textarea></div>
-      <button class="form-submit" onclick="submitForm()">Send Message</button>
-      <div class="form-success" id="form-success">✓ &nbsp; Thank you. We will reach out to you shortly.</div>
+      <div class="fg2"><label>Full Name</label><input type="text" placeholder="Your name"></div>
+      <div class="fg2"><label>Phone Number</label><input type="tel" placeholder="+250 ___"></div>
+      <div class="fg2"><label>Email</label><input type="email" placeholder="you@email.com"></div>
+      <div class="fg2"><label>Message</label><textarea placeholder="How can we help you?"></textarea></div>
+      <button class="contact-submit" onclick="submitContact()">Send Message</button>
+      <div class="c-success" id="c-success">✓ Thank you. We will reach out to you shortly.</div>
     </div>
   </div>
-  <footer><p>© 2025 Emma Funeral Services. All rights reserved.</p><a href="tel:+250788000000">+250 788 000 000</a></footer>
+  <footer><p>© 2025 Emma Funeral Services. All rights reserved.</p><a href="tel:+250788871345">+250 788 871 345</a></footer>
+</div>
+
+<!-- ═══ PRODUCT MODAL ═══ -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal-box">
+    <button class="modal-close" onclick="closeModalDirect()">✕</button>
+
+    <!-- Slideshow -->
+    <div class="modal-slides" id="modal-slides">
+      <!-- injected by JS -->
+    </div>
+
+    <!-- Info -->
+    <div class="modal-info">
+      <div class="modal-tag">Emma Funeral Services</div>
+      <div class="modal-name" id="modal-name">—</div>
+      <div class="modal-price" id="modal-price">—</div>
+      <div class="modal-divider"></div>
+      <div class="modal-desc" id="modal-desc">—</div>
+      <div class="modal-actions">
+        <button class="btn-add-cart" id="modal-cart-btn" onclick="addToCartFromModal()">🛒 Add to Cart</button>
+        <a class="btn-wa" id="modal-wa" href="#" target="_blank">💬 Enquire on WhatsApp</a>
+        <a class="btn-call-m" id="modal-call" href="#">📞 Call to Order</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CART PANEL ═══ -->
+<div class="cart-overlay" id="cart-overlay">
+  <div class="cart-backdrop" onclick="closeCart()"></div>
+  <div class="cart-panel">
+    <div class="cart-head">
+      <h3>Your Cart</h3>
+      <button class="cart-close-btn" onclick="closeCart()">✕</button>
+    </div>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="cart-foot" id="cart-foot" style="display:none;">
+      <div class="cart-total">
+        <span>Total</span>
+        <span id="cart-total-val">RWF 0</span>
+      </div>
+      <button class="cart-checkout" onclick="cartCheckout()">Proceed to Order via WhatsApp</button>
+    </div>
+  </div>
 </div>
 
 <script src="main.js"></script>
 </body>
-</html>
