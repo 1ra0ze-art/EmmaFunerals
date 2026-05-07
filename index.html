@@ -1,29 +1,44 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Emma Funeral Services</title>
+<title>Ajacque Funeral Services</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
+ 
 <!-- NAVBAR -->
 <nav>
   <div class="nav-brand" onclick="showPage('home')">
     <svg class="nav-logo" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="52" height="52" rx="4" fill="#e8f0ed"/>
-      <path d="M17 8 L35 8 L41 16 L41 44 L11 44 L11 16 Z" fill="none" stroke="#4a7c6b" stroke-width="2"/>
-      <path d="M11 16 L17 8" stroke="#4a7c6b" stroke-width="2"/>
-      <path d="M35 8 L41 16" stroke="#4a7c6b" stroke-width="2"/>
-      <line x1="26" y1="20" x2="26" y2="36" stroke="#4a7c6b" stroke-width="1.5" opacity="0.6"/>
-      <line x1="18" y1="28" x2="34" y2="28" stroke="#4a7c6b" stroke-width="1.5" opacity="0.6"/>
-      <circle cx="26" cy="28" r="2.5" fill="#4a7c6b" opacity="0.8"/>
+      <!-- Outer ring -->
+      <circle cx="26" cy="26" r="25" stroke="#4a7c6b" stroke-width="2" fill="#e8f0ed"/>
+      <!-- Inner ring -->
+      <circle cx="26" cy="26" r="20" stroke="#4a7c6b" stroke-width="1" fill="none"/>
+      <!-- Top arc text: AJACQUE FUNERAL -->
+      <path id="topArc" d="M 6,26 A 20,20 0 0,1 46,26" fill="none"/>
+      <text font-size="4.2" font-family="Georgia,serif" font-weight="bold" fill="#4a7c6b" letter-spacing="1.5">
+        <textPath href="#topArc" startOffset="8%">AJACQUE FUNERAL</textPath>
+      </text>
+      <!-- Bottom arc text: Services -->
+      <path id="botArc" d="M 8,30 A 20,20 0 0,0 44,30" fill="none"/>
+      <text font-size="4.5" font-family="Georgia,serif" font-style="italic" fill="#4a7c6b" letter-spacing="1">
+        <textPath href="#botArc" startOffset="18%">Services</textPath>
+      </text>
+      <!-- Stars -->
+      <text x="26" y="22" text-anchor="middle" font-size="5" fill="#4a7c6b">★ ★ ★</text>
+      <!-- TIN -->
+      <text x="26" y="29" text-anchor="middle" font-size="3.2" font-family="sans-serif" font-weight="bold" fill="#4a7c6b">TIN:155608026</text>
+      <!-- Tel -->
+      <text x="26" y="34" text-anchor="middle" font-size="3" font-family="sans-serif" fill="#4a7c6b">Tel:0788871345</text>
+      <!-- Side stars -->
+      <text x="3" y="28" text-anchor="middle" font-size="5" fill="#4a7c6b">★</text>
+      <text x="49" y="28" text-anchor="middle" font-size="5" fill="#4a7c6b">★</text>
     </svg>
     <div class="nav-name">
-      <span>Emma Funeral Services</span>
+      <span>Ajacque Funeral Services</span>
       <span>Premium Coffins &amp; Burial Solutions</span>
     </div>
   </div>
@@ -38,14 +53,14 @@
     </button>
   </div>
 </nav>
-
+ 
 <!-- ═══ HOME ═══ -->
 <div class="page active" id="page-home">
   <section class="hero">
     <div class="hero-content">
       <div class="hero-tag">Dignified Farewells Since 2010</div>
       <h1>Honouring Life with <em>Dignity</em> &amp; Grace</h1>
-      <p>At Emma Funeral Services, every coffin is a final tribute — crafted with care, quality timber, and deep respect for the life being honoured. We walk alongside you in this solemn moment.</p>
+      <p>At Ajacque Funeral Services, every coffin is a final tribute — crafted with care, quality timber, and deep respect for the life being honoured. We walk alongside you in this solemn moment.</p>
       <button class="hero-cta" onclick="showPage('gallery')">Browse Collections →</button>
       <button class="hero-cta2" onclick="showPage('contact')">Contact Us</button>
     </div>
@@ -62,9 +77,9 @@
     </div>
     <div class="strip-tel"><span>Call Us Now</span><a href="tel:+250788871345">+250 788 871 345</a></div>
   </section>
-  <footer><p>© <span id="yr"></span> Emma Funeral Services. All rights reserved.</p><a onclick="showPage('contact')">Get in Touch</a></footer>
+  <footer><p>© <span id="yr"></span> Ajacque Funeral Services. All rights reserved.</p><a onclick="showPage('contact')">Get in Touch</a></footer>
 </div>
-
+ 
 <!-- ═══ GALLERY / SHOP ═══ -->
 <div class="page" id="page-gallery">
   <div class="market-header">
@@ -78,9 +93,9 @@
     <div class="product-grid" id="product-grid"></div>
     <div class="market-empty" id="market-empty"><p>No products yet — check back soon.</p></div>
   </div>
-  <footer><p>© <span id="yr"></span> Emma Funeral Services. All rights reserved.</p><a onclick="showPage('contact')">Get in Touch</a></footer>
+  <footer><p>© <span id="yr"></span> Ajacque Funeral Services. All rights reserved.</p><a onclick="showPage('contact')">Get in Touch</a></footer>
 </div>
-
+ 
 <!-- ═══ CONTACT ═══ -->
 <div class="page" id="page-contact">
   <div class="contact-layout">
@@ -89,7 +104,7 @@
       <p class="sub">Get in touch</p>
       <div class="c-detail"><div class="c-icon">📍</div><div class="c-text"><span>Location</span><p>KG 14 Ave, Kigali<br>Rwanda</p></div></div>
       <div class="c-detail"><div class="c-icon">📞</div><div class="c-text"><span>Phone</span><p>+250 788 871 345<br>Available 24 / 7</p></div></div>
-      <div class="c-detail"><div class="c-icon">✉️</div><div class="c-text"><span>Email</span><p>info@emmafunerals.rw</p></div></div>
+      <div class="c-detail"><div class="c-icon">✉️</div><div class="c-text"><span>Email</span><p>info@ajacquefunerals.rw</p></div></div>
       <div class="c-detail"><div class="c-icon">🕐</div><div class="c-text"><span>Hours</span><p>Mon – Sat: 7:00 AM – 7:00 PM<br>Emergency: 24 hours</p></div></div>
     </div>
     <div class="contact-right">
@@ -102,22 +117,16 @@
       <div class="c-success" id="c-success">✓ Thank you. We will reach out to you shortly.</div>
     </div>
   </div>
-  <footer><p>© <span id="yr"></span> Emma Funeral Services. All rights reserved.</p><a href="tel:+250788871345">+250 788 871 345</a></footer>
+  <footer><p>© <span id="yr"></span> Ajacque Funeral Services. All rights reserved.</p><a href="tel:+250788871345">+250 788 871 345</a></footer>
 </div>
-
+ 
 <!-- ═══ PRODUCT MODAL ═══ -->
 <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
   <div class="modal" id="modal-box">
     <button class="modal-close" onclick="closeModalDirect()">✕</button>
-
-    <!-- Slideshow -->
-    <div class="modal-slides" id="modal-slides">
-      <!-- injected by JS -->
-    </div>
-
-    <!-- Info -->
+    <div class="modal-slides" id="modal-slides"></div>
     <div class="modal-info">
-      <div class="modal-tag">Emma Funeral Services</div>
+      <div class="modal-tag">Ajacque Funeral Services</div>
       <div class="modal-name" id="modal-name">—</div>
       <div class="modal-price" id="modal-price">—</div>
       <div class="modal-divider"></div>
@@ -130,7 +139,7 @@
     </div>
   </div>
 </div>
-
+ 
 <!-- ═══ CART PANEL ═══ -->
 <div class="cart-overlay" id="cart-overlay">
   <div class="cart-backdrop" onclick="closeCart()"></div>
@@ -149,6 +158,7 @@
     </div>
   </div>
 </div>
-
+ 
 <script src="main.js"></script>
 </body>
+</html>

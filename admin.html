@@ -3,38 +3,45 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin — Emma Funeral Services</title>
+<title>Admin — Ajacque Funeral Services</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="admin.css">
 </head>
 <body>
-
+ 
 <aside>
   <div class="sb-top">
     <div class="sb-logo">
       <div class="sb-logo-icon">
         <svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M13 5 L29 5 L36 13 L36 37 L6 37 L6 13 Z" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="2"/>
-          <path d="M6 13 L13 5" stroke="rgba(255,255,255,0.9)" stroke-width="2"/>
-          <path d="M29 5 L36 13" stroke="rgba(255,255,255,0.9)" stroke-width="2"/>
-          <line x1="21" y1="15" x2="21" y2="32" stroke="rgba(255,255,255,0.55)" stroke-width="1.5"/>
-          <line x1="13" y1="23.5" x2="29" y2="23.5" stroke="rgba(255,255,255,0.55)" stroke-width="1.5"/>
-          <circle cx="21" cy="23.5" r="2.5" fill="rgba(255,255,255,0.7)"/>
+          <!-- Outer ring -->
+          <circle cx="21" cy="21" r="20" stroke="rgba(255,255,255,0.9)" stroke-width="1.5" fill="none"/>
+          <!-- Inner ring -->
+          <circle cx="21" cy="21" r="15" stroke="rgba(255,255,255,0.5)" stroke-width="1" fill="none"/>
+          <!-- Stars -->
+          <text x="21" y="16" text-anchor="middle" font-size="5" fill="rgba(255,255,255,0.9)">★★★</text>
+          <!-- TIN -->
+          <text x="21" y="23" text-anchor="middle" font-size="3" font-family="sans-serif" fill="rgba(255,255,255,0.85)" font-weight="bold">TIN:155608026</text>
+          <!-- Tel -->
+          <text x="21" y="28" text-anchor="middle" font-size="2.8" font-family="sans-serif" fill="rgba(255,255,255,0.7)">0788871345</text>
+          <!-- Side stars -->
+          <text x="2" y="23" text-anchor="middle" font-size="5" fill="rgba(255,255,255,0.7)">★</text>
+          <text x="40" y="23" text-anchor="middle" font-size="5" fill="rgba(255,255,255,0.7)">★</text>
         </svg>
       </div>
       <div class="sb-logo-text">
-        <span class="t1">Emma</span>
+        <span class="t1">Ajacque</span>
         <span class="t2">Funeral Services</span>
       </div>
     </div>
     <div class="sb-badge">Admin Panel</div>
   </div>
-
+ 
   <nav class="sb-nav">
     <div class="sb-item active" onclick="switchSection('add', this)"><span class="ic">➕</span> Add Product</div>
     <div class="sb-item" onclick="switchSection('list', this)"><span class="ic">📦</span> All Products</div>
   </nav>
-
+ 
   <div class="sb-stats">
     <div class="stat-row">
       <span class="stat-label">Total Products</span>
@@ -42,7 +49,7 @@
     </div>
   </div>
 </aside>
-
+ 
 <main>
   <div class="main-hd">
     <div>
@@ -51,26 +58,25 @@
     </div>
     <a class="view-btn" href="index.html" target="_blank">↗ View Website</a>
   </div>
-
+ 
   <!-- ADD -->
   <div class="section active" id="section-add">
     <div class="form-card">
       <h2>Add New Product</h2>
       <p class="sub">Fill in the details and upload up to 3 photos — they'll appear as a slideshow on the website</p>
-
+ 
       <div class="form-row">
         <div class="fg"><label>Product Name *</label><input type="text" id="f-name" placeholder="e.g. Royal Oak Casket"></div>
         <div class="fg"><label>Price *</label><input type="text" id="f-price" placeholder="e.g. 450,000 RWF"></div>
       </div>
       <div class="fg"><label>Description</label><textarea id="f-desc" placeholder="Material, finish, dimensions, style..."></textarea></div>
       <div class="form-row">
-        <div class="fg"><label>WhatsApp Number *</label><input type="text" id="f-wa" placeholder="+250788000000"></div>
-        <div class="fg"><label>Call Number *</label><input type="text" id="f-tel" placeholder="+250788000000"></div>
+        <div class="fg"><label>WhatsApp Number *</label><input type="text" id="f-wa" placeholder="+250788871345"></div>
+        <div class="fg"><label>Call Number *</label><input type="text" id="f-tel" placeholder="+250788871345"></div>
       </div>
-
+ 
       <label class="imgs-label">Product Photos <span>(up to 3 — shown as slideshow)</span></label>
       <div class="imgs-grid">
-        <!-- Slot 1 -->
         <div class="img-slot" id="slot-0">
           <div class="img-slot-inner" id="slot-inner-0">
             <input type="file" accept="image/*" onchange="handleImg(this,0)">
@@ -79,7 +85,6 @@
             <span class="slot-hint">Main photo</span>
           </div>
         </div>
-        <!-- Slot 2 -->
         <div class="img-slot" id="slot-1">
           <div class="img-slot-inner" id="slot-inner-1">
             <input type="file" accept="image/*" onchange="handleImg(this,1)">
@@ -88,7 +93,6 @@
             <span class="slot-hint">Side / angle</span>
           </div>
         </div>
-        <!-- Slot 3 -->
         <div class="img-slot" id="slot-2">
           <div class="img-slot-inner" id="slot-inner-2">
             <input type="file" accept="image/*" onchange="handleImg(this,2)">
@@ -98,7 +102,7 @@
           </div>
         </div>
       </div>
-
+ 
       <div class="form-actions">
         <button class="btn-save" onclick="saveProduct()">Save Product</button>
         <button class="btn-clr" onclick="clearForm()">Clear</button>
@@ -106,7 +110,7 @@
       <div class="toast" id="toast"></div>
     </div>
   </div>
-
+ 
   <!-- LIST -->
   <div class="section" id="section-list">
     <div class="list-card">
@@ -117,14 +121,14 @@
     </div>
   </div>
 </main>
-
+ 
 <script>
   let imgs = [null, null, null];
-
+ 
   function getProducts() { return JSON.parse(localStorage.getItem('emma_products') || '[]'); }
   function saveProducts(arr) { localStorage.setItem('emma_products', JSON.stringify(arr)); updateStats(); }
   function updateStats() { document.getElementById('stat-count').textContent = getProducts().length; }
-
+ 
   function switchSection(id, el) {
     document.querySelectorAll('.sb-item').forEach(i => i.classList.remove('active'));
     document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
@@ -132,8 +136,7 @@
     document.getElementById('section-' + id).classList.add('active');
     if (id === 'list') renderList();
   }
-
-  // ── Image slots ──
+ 
   function handleImg(input, idx) {
     const file = input.files[0];
     if (!file) return;
@@ -150,12 +153,11 @@
     };
     reader.readAsDataURL(file);
   }
-
+ 
   function clearSlot(idx) {
     imgs[idx] = null;
-    const labels = ['Main photo', 'Side / angle', 'Detail / interior'];
-    const hints = ['Main photo', 'Side / angle', 'Detail / interior'];
     const nums = ['Photo 1', 'Photo 2', 'Photo 3'];
+    const hints = ['Main photo', 'Side / angle', 'Detail / interior'];
     const inner = document.getElementById('slot-inner-' + idx);
     inner.innerHTML = `
       <input type="file" accept="image/*" onchange="handleImg(this,${idx})">
@@ -163,8 +165,7 @@
       <span class="slot-num">${nums[idx]}</span>
       <span class="slot-hint">${hints[idx]}</span>`;
   }
-
-  // ── Save ──
+ 
   function saveProduct() {
     const name  = document.getElementById('f-name').value.trim();
     const price = document.getElementById('f-price').value.trim();
@@ -173,39 +174,32 @@
     const tel   = document.getElementById('f-tel').value.trim();
     if (!name || !price) { showToast('Name and Price are required.', 'error'); return; }
     if (!wa || !tel)      { showToast('WhatsApp and Call numbers are required.', 'error'); return; }
-
+ 
     const products = getProducts();
-    products.push({
-      name, price, desc,
-      imgs: imgs.filter(Boolean),  // only non-null
-      wa, tel, id: Date.now()
-    });
+    products.push({ name, price, desc, imgs: imgs.filter(Boolean), wa, tel, id: Date.now() });
     saveProducts(products);
     showToast('✓  Product saved! It is now live on the website.', 'success');
     clearForm();
   }
-
+ 
   function clearForm() {
     ['f-name','f-price','f-desc','f-wa','f-tel'].forEach(id => document.getElementById(id).value = '');
     [0,1,2].forEach(i => clearSlot(i));
     imgs = [null, null, null];
   }
-
+ 
   function showToast(msg, type) {
     const t = document.getElementById('toast');
     t.textContent = msg; t.className = 'toast ' + type; t.style.display = 'block';
     setTimeout(() => t.style.display = 'none', 3800);
   }
-
-  // ── List ──
+ 
   function renderList() {
     const products = getProducts();
     const el = document.getElementById('list-rows');
     if (!products.length) { el.innerHTML = '<div class="list-empty"><p>No products added yet.</p></div>'; return; }
     el.innerHTML = products.map((p, i) => {
-      const thumbs = (p.imgs || []).map(img =>
-        `<img class="thumb" src="${img}" alt="">`
-      ).join('');
+      const thumbs = (p.imgs || []).map(img => `<img class="thumb" src="${img}" alt="">`).join('');
       const emptyThumbs = Array(3 - (p.imgs||[]).length).fill('<div class="thumb-empty">⚰</div>').join('');
       return `<div class="list-row">
         <div class="thumb-strip">${thumbs}${emptyThumbs}</div>
@@ -216,7 +210,7 @@
       </div>`;
     }).join('');
   }
-
+ 
   function delProduct(i) {
     if (!confirm('Delete this product? Cannot be undone.')) return;
     const products = getProducts();
@@ -224,8 +218,7 @@
     saveProducts(products);
     renderList();
   }
-
-  // drag & drop for each slot
+ 
   [0,1,2].forEach(idx => {
     const el = document.getElementById('slot-inner-' + idx);
     el.addEventListener('dragover', e => { e.preventDefault(); el.classList.add('drag'); });
@@ -239,7 +232,7 @@
       }
     });
   });
-
+ 
   updateStats();
 </script>
 </body>
